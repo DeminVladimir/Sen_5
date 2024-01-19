@@ -1,0 +1,26 @@
+{% extends 'apptwo/base.html' %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <p>Автор: {{ article.author }}</p>
+    <p>Дата публикации: {{ article.publication_date }}</p>
+    <p>{{ article.content }}</p>
+
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Комментировать</button>
+    </form>
+
+    <h2>Комментарии:</h2>
+    {% for comment in article.comments_set.all %}
+        <p>Автор: {{ comment.author }}</p>
+        <p>Дата создания: {{ comment.created_date }}</p>
+        {% if comment.updated_date > comment.created_date %}
+            <p>Дата обновления: {{ comment.updated_date }} (изменено)</p>
+        {% endif %}
+        <p>{{ comment.content }}</p>
+    {% empty %}
+        <p>Нет комментариев</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'apptwo/base.html' %}
+
+{% block content %}
+
+    <ul>
+    {% for post in posts %}
+    {% if post.status %}
+    <li>
+        <a href="{% url 'author_article' post.id %}">{{ post.title }}</a>
+    </li>
+    {% else %}
+    <li>
+        <p>{{ post.title }}</p>
+    </li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+{% endblock %}
